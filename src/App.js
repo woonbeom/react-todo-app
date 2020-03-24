@@ -40,10 +40,15 @@ const App = () => {
     [todos], // 이전 값을 참조해야할 일이 있으면 꼭 useCallback 파라미터 배열에 값을 넣어주어야 함.
   );
 
+  const onRemove = useCallback(
+    id => setTodos(todos.filter(todo => todo.id !== id)),
+    [todos],
+  );
+
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onRemove={onRemove} />
     </TodoTemplate>
   );
 };
