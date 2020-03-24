@@ -45,10 +45,21 @@ const App = () => {
     [todos],
   );
 
+  const onToggle = useCallback(
+    id =>
+      setTodos(
+        // 불변성을 유지하면서 배열의 원소를 업데이트해야할 때 map을 사용.
+        // ...todo == id: todo.id, text: todo.text
+        todos.map(todo =>
+          todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+        ),
+      ),
+    [todos],
+  );
   return (
     <TodoTemplate>
       <TodoInsert onInsert={onInsert} />
-      <TodoList todos={todos} onRemove={onRemove} />
+      <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle} />
     </TodoTemplate>
   );
 };
